@@ -6,27 +6,11 @@
       extract($row);
     ?>
       <div class="lg:p-4 doctor py-4 px-2 rounded-xl bg-white group shadow-xl hover:rounded-2xl lg:m-5 m-2">
-        <?php
-        if ($name == 'SUILANE COELHO RIBEIRO OLIVEIRA') {
-        ?>
+        <?php if (!empty($title_office)) { ?>
           <p style="word-wrap: break-word;" class="font-bold uppercase text-center text-sm py-2 uppercase">
-            responsável técnico da medicina
+            <?php echo $title_office; ?>
           </p>
-        <?php  } ?>
-        <?php
-        if ($name == 'Patricia de Carvalho Joca Meireles') {
-        ?>
-          <p style="word-wrap: break-word;" class="font-bold uppercase text-center text-sm py-2 uppercase">
-            responsável técnico da enfermagem
-          </p>
-        <?php  } ?>
-        <?php
-        if ($specialty == 'Farmacêutico') {
-        ?>
-          <p style="word-wrap: break-word;" class="font-bold uppercase text-center text-sm py-2 uppercase">
-            responsável técnico Farmacêutico
-          </p>
-        <?php  } ?>
+        <?php } ?>
         <div class="flex items-center justify-between">
           <div class="flex mt-6 gap-3">
             <img src="./admin/uploads/doctors/<?php echo $row['img']; ?>" onerror="this.src='./assets/img/semperfil.png'" class="rounded-full object-cover h-24 w-24" />

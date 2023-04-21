@@ -45,7 +45,7 @@ if (isset($_GET['delete_id'])) {
         ?>
           <div class="md:col-span-2 grid justify-items-center lg:col-span-1">
             <h1 class="text-center text-lg font-bold text-color1 h-16"><?php echo $name; ?></h1>
-            <img class="w-48 h-48 rounded-md" src="./uploads/users/<?php echo $img ?>" onerror="this.src='../assets/img/semperfil.png'"/>
+            <img class="w-30 h-20 rounded-md" src="./uploads/users/<?php echo $img ?>" onerror="this.src='../assets/img/semperfil.png'"/>
             <div>
             <a href="editar_user.php?edit_id=<?php echo $row['id']; ?>">
             <button class="bg-color1 text-white px-3 py-2 rounded-md my-2">

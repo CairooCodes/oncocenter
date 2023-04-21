@@ -14,9 +14,9 @@ if (isset($_POST['btnsave'])) {
   $crm = $_POST['crm'];
   $contact = $_POST['contact'];
   $old_date = $_POST['date_nasc'];
-  if(!empty($old_date)){
-  $date_nasc = date('d/m/Y',strtotime($old_date));
-}
+  if (!empty($old_date)) {
+    $date_nasc = date('d/m/Y', strtotime($old_date));
+  }
   $email = $_POST['email'];
   $instagram = $_POST['instagram'];
   $curriculum = $_POST['curriculum'];
@@ -25,6 +25,8 @@ if (isset($_POST['btnsave'])) {
   $imgFile = $_FILES['user_image']['name'];
   $tmp_dir = $_FILES['user_image']['tmp_name'];
   $imgSize = $_FILES['user_image']['size'];
+
+  $title_office = $_POST['title_office'];
 
   if (empty($name)) {
     $errMSG = "Por favor, insira um nome";
@@ -43,7 +45,7 @@ if (isset($_POST['btnsave'])) {
     }
   }
   if (!isset($errMSG)) {
-    $stmt = $DB_con->prepare('INSERT INTO doctors (name,specialty,crm,contact,date_nasc,email,instagram,curriculum,img,rqe) VALUES(:uname,:uspecialty,:ucrm,:ucontact,:udate_nasc,:uemail,:uinstagram,:ucurriculum,:upic,:urqe)');
+    $stmt = $DB_con->prepare('INSERT INTO doctors (name,specialty,crm,contact,date_nasc,email,instagram,curriculum,img,rqe,title_office) VALUES(:uname,:uspecialty,:ucrm,:ucontact,:udate_nasc,:uemail,:uinstagram,:ucurriculum,:upic,:urqe,:utitle_office)');
     $stmt->bindParam(':uname', $name);
     $stmt->bindParam(':uspecialty', $specialty);
     $stmt->bindParam(':ucrm', $crm);
@@ -54,11 +56,12 @@ if (isset($_POST['btnsave'])) {
     $stmt->bindParam(':ucurriculum', $curriculum);
     $stmt->bindParam(':upic', $userpic);
     $stmt->bindParam(':urqe', $rqe);
+    $stmt->bindParam(':utitle_office', $title_office);
 
     if ($stmt->execute()) {
       echo ("<script>
         alert (\"Profissional adicionado com sucesso\")
-        window.location.href = './corpo_clinico.php';
+        window.location.href = './dashboard.php';
         </script>"
       );
     } else {
@@ -90,7 +93,7 @@ if (isset($_POST['btnsave'])) {
               <div class="grid">
                 <label for="date_nasc">Data de nascimento:</label>
                 <input name="date_nasc" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="date" placeholder="Data de Nascimento">
-              </div>  
+              </div>
               <input name="email" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Email">
               <input name="instagram" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Instagram">
               <input name="curriculum" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Curriculum Lates">
@@ -112,6 +115,10 @@ if (isset($_POST['btnsave'])) {
                     </option>
                   <?php } ?>
                 </select>
+              </div>
+              <div class="grid">
+                <label for="Titulo de cargo">Titulo de cargo:</label>
+                <input name="title_office" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Titulo de cargo">
               </div>
             </div>
             <div x-data="showImage()" class="flex items-center justify-centermt-32 mb-32">

@@ -19,18 +19,19 @@ if (isset($_GET['edit_id']) && !empty($_GET['edit_id'])) {
 }
 
 if (isset($_POST['btnsave'])) {
-    $name = $_POST['name'];
-    $specialty = $_POST['specialty'];
-    $crm = $_POST['crm'];
-    $contact = $_POST['contact'];
-    $old_date = $_POST['date_nasc']; 
-    if(!empty($old_date)){
-    $date_nasc = date('d/m/Y',strtotime($old_date));
+  $name = $_POST['name'];
+  $specialty = $_POST['specialty'];
+  $crm = $_POST['crm'];
+  $contact = $_POST['contact'];
+  $old_date = $_POST['date_nasc'];
+  if (!empty($old_date)) {
+    $date_nasc = date('d/m/Y', strtotime($old_date));
   }
-    $email = $_POST['email'];
-    $instagram = $_POST['instagram'];
-    $curriculum = $_POST['curriculum'];
-    $rqe = $_POST['rqe'];
+  $email = $_POST['email'];
+  $instagram = $_POST['instagram'];
+  $curriculum = $_POST['curriculum'];
+  $rqe = $_POST['rqe'];
+  $title_office = $_POST['title_office'];
 
   $imgFile = $_FILES['user_image']['name'];
   $tmp_dir = $_FILES['user_image']['tmp_name'];
@@ -70,7 +71,8 @@ if (isset($_POST['btnsave'])) {
     instagram=:uinstagram,
     curriculum=:ucurriculum,
     img=:upic,
-    rqe=:urqe
+    rqe=:urqe,
+    title_office=:utitle_office
     WHERE id=:uid ;');
     $stmt->bindParam(':uname', $name);
     $stmt->bindParam(':uspecialty', $specialty);
@@ -82,12 +84,13 @@ if (isset($_POST['btnsave'])) {
     $stmt->bindParam(':ucurriculum', $curriculum);
     $stmt->bindParam(':upic', $userpic);
     $stmt->bindParam(':urqe', $rqe);
+    $stmt->bindParam(':utitle_office', $title_office);
     $stmt->bindParam(':uid', $id);
 
     if ($stmt->execute()) {
       echo ("<script>
         alert (\"Profissional atualizado com sucesso\")
-        window.location.href = './corpo_clinico.php';
+        window.location.href = './dashboard.php';
         </script>"
       );
     } else {
@@ -125,7 +128,7 @@ if (isset($_POST['btnsave'])) {
   <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
     <?php include "components/header.php" ?>
     <div class="px-6 pt-6 2xl:container">
-    <form action="" method="POST" enctype="multipart/form-data">
+      <form action="" method="POST" enctype="multipart/form-data">
         <div class="flex w-full justify-center">
           <div class="space-y-6 w-full">
             <div class="grid md:grid-cols-2 gap-6">
@@ -135,15 +138,15 @@ if (isset($_POST['btnsave'])) {
               <div class="grid">
                 <label for="date_nasc">Data de nascimento: <?php echo $date_nasc ?></label>
                 <input name="date_nasc" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="date" placeholder="Data de Nascimento">
-              </div>  
+              </div>
               <input name="email" value="<?php echo $email ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Email">
               <input name="instagram" value="<?php echo $instagram ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Instagram">
-              <input name="curriculum" value="<?php echo $curriculum ?>"class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Curriculum Lates">
+              <input name="curriculum" value="<?php echo $curriculum ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Curriculum Lates">
               <input name="rqe" value="<?php echo $rqe ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="RQE">
               <div>
                 <label>Especialidade</label>
                 <select name="specialty" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1">
-                    <option value="<?php echo $specialty ?>"> <?php echo $specialty?> (selecionado)</option>
+                  <option value="<?php echo $specialty ?>"> <?php echo $specialty ?> (selecionado)</option>
                   <?php
                   $stmt = $DB_con->prepare("SELECT specialty from doctors group by specialty");
                   $stmt->execute();
@@ -159,29 +162,33 @@ if (isset($_POST['btnsave'])) {
                   <?php } ?>
                 </select>
               </div>
+              <div class="grid">
+                <label for="Titulo de cargo">Titulo de cargo:</label>
+                <input name="title_office" value="<?php echo $title_office ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Titulo de cargo">
+              </div>
             </div>
             <div class="items-center lg:grid lg:grid-cols-2">
-            <div class="flex justify-center"><img class="h-72 " src="./uploads/doctors/<?php echo $img; ?>" onerror="this.src='../assets/img/semperfil.png'" alt="Profile"></div>
-            <div x-data="showImage()" class="flex items-center justify-centermt-32 mb-32">
-              <div class="bg-white rounded-lg shadow-xl md:w-9/12 lg:w-1/2">
-                <div class="m-4">
-                  <label class="inline-block mb-2">Imagens - Pré-visualização</label>
-                  <div class="flex items-center justify-center w-full">
-                    <label class="flex flex-col w-full h-40 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
-                      <div class="relative flex flex-col items-center justify-center pt-7">
-                        <img id="preview" class="absolute inset-0 w-full h-40">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-400 group-hover:text-gray-600" viewBox="0 0 20 20" fill="currentColor">
-                          <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                        </svg>
-                        <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                          Escolha uma foto</p>
-                      </div>
-                      <input type="file" name="user_image" class="opacity-0" accept="image/*" @change="showPreview(event)" />
-                    </label>
+              <div class="flex justify-center"><img class="h-72 " src="./uploads/doctors/<?php echo $img; ?>" onerror="this.src='../assets/img/semperfil.png'" alt="Profile"></div>
+              <div x-data="showImage()" class="flex items-center justify-centermt-32 mb-32">
+                <div class="bg-white rounded-lg shadow-xl md:w-9/12 lg:w-1/2">
+                  <div class="m-4">
+                    <label class="inline-block mb-2">Imagens - Pré-visualização</label>
+                    <div class="flex items-center justify-center w-full">
+                      <label class="flex flex-col w-full h-40 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                        <div class="relative flex flex-col items-center justify-center pt-7">
+                          <img id="preview" class="absolute inset-0 w-full h-40">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-400 group-hover:text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                          </svg>
+                          <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                            Escolha uma foto</p>
+                        </div>
+                        <input type="file" name="user_image" class="opacity-0" accept="image/*" @change="showPreview(event)" />
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             </div>
             <button type="submit" name="btnsave" class="w-1/2 flex justify-center bg-color1 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
               Editar Profissional

@@ -29,12 +29,6 @@
         </a>
       </li>
       <li>
-        <a href="corpo_clinico.php" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-800 group">
-          <i class="bi bi-hospital"></i>
-          <span class="group-hover:text-gray-700">Corpo Clínico</span>
-        </a>
-      </li>
-      <li>
         <a href="convenios.php" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-800 group">
           <i class="fas fa-handshake"></i>
           <span class="group-hover:text-gray-700">Convênios</span>
