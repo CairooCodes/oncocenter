@@ -1,0 +1,29 @@
+.swiper {
+  width: 100%;
+  z-index: 1;
+  padding-bottom:20px;
+}
+
+.swiper-slide {
+  z-index: 1;
+}
+
+.swiper_banners_text {
+  z-index: 2;
+  position: absolute;
+  top: 100px;
+  left: 80px;
+}
+
+@media (max-width: 767px) {
+  .swiper_banners_text {
+    position: absolute;
+    top: 50px;
+    left: 1px;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  
+}
