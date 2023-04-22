@@ -106,7 +106,7 @@ if (isset($_POST['btnsave'])) {
           <div class="space-y-6 w-full">
             <div class="grid gap-2">
             <input value="<?php echo $name ?>" name="name" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome do Serviço">
-            <textarea name="info" id="default" placeholder="Informações completas do curso"><?php echo $info?></textarea>
+            <textarea name="info" id="default" placeholder="Informações completas do serviço"><?php echo $info?></textarea>
               </div>
             </div>
             <div class="items-center lg:grid lg:grid-cols-2">

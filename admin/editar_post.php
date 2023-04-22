@@ -103,16 +103,22 @@ if (isset($_POST['btnsave'])) {
     <div class="px-6 pt-6 2xl:container">
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="space-y-6">
-          <input value="<?php echo $title ?>" name="title" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome do Curso">
+          <input value="<?php echo $title ?>" name="title" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Titulo do Post">
+          <input value="<?php echo $subtitle ?>" name="title" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Subtitulo do Post">
           <textarea name="info" id="default" placeholder="Informações completas do curso"><?php echo $info ?></textarea>
           <div class="items-center lg:grid lg:grid-cols-2">
-          <div class="flex justify-center">
-            <img style="object-fit: cover;" class="h-48 w-48" src="./uploads/posts/<?php echo $img; ?>" onerror="this.src='../assets/img/semperfil.png'" alt="Profile">
-          </div>
+            <div class="flex justify-center">
+              <?php
+              if (!empty($img)) {
+                $img2 = base64_encode($img);
+                echo "<img style='object-fit: cover;' class='w-full p-10' src='data:image/jpeg;base64," . $img2 . "'>";
+              }
+              ?>
+            </div>
             <div x-data="showImage()" class="flex items-center justify-centermt-32 mb-32">
               <div class="bg-white rounded-lg shadow-xl md:w-9/12 lg:w-1/2">
                 <div class="m-4">
-                  <label class="inline-block mb-2">Imagens - Pré-visualização</label>
+                  <label class="inline-block mb-2">Imagem de Capa - Pré-visualização</label>
                   <div class="flex items-center justify-center w-full">
                     <label class="flex flex-col w-full h-40 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
                       <div class="relative flex flex-col items-center justify-center pt-7">

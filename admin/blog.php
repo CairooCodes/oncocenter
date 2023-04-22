@@ -42,28 +42,33 @@ if (isset($_GET['delete_id'])) {
         $stmt = $DB_con->prepare("SELECT * FROM posts order by id desc");
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
-          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
             extract($row);
         ?>
-            <div class="md:col-span-2 grid justify-items-center lg:col-span-1">
-              <h1 class="text-center text-lg font-bold text-color1 h-16"><?php echo $title; ?></h1>
-              <img class="w-48 h-48 rounded-md" src="./uploads/posts/<?php echo $img ?>" onerror="this.src='../assets/img/semperfil.png'"/>
-              <div>
-              <a href="editar_post.php?edit_id=<?php echo $row['id']; ?>">
+          <div class="md:col-span-2 grid justify-items-center lg:col-span-1">
+            <h1 class="text-center text-lg font-bold text-color1"><?php echo $title; ?></h1>
+            <?php
+            if (!empty($img)) {
+              $img2 = base64_encode($img);
+              echo "<img class='h-60 w-full rounded-md' src='data:image/jpeg;base64," . $img2 . "'>";
+            }
+            ?>
+            <div>
+              <a href="editar_post.php?edit_id=<?php echo $id; ?>">
                 <button class="bg-color1 text-white px-3 py-2 rounded-md my-2">
                   editar
                 </button>
               </a>
-              <a href="?delete_id=<?php echo $row['id']; ?>">
+              <a href="?delete_id=<?php echo $id; ?>">
                 <button class="bg-red-600 text-white px-3 py-2 rounded-md my-2">
                   excluir
                 </button>
               </a>
-              </div>
             </div>
-          <?php }
+          </div>
+        <?php
         } else {
-          ?>
+        ?>
           <span class="font-bold">Sem postagem cadastrada...</span>
         <?php
         }

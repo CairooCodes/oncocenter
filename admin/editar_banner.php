@@ -100,7 +100,7 @@ if (isset($_POST['btnsave'])) {
     <div class="px-6 pt-6 2xl:container">
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="space-y-6">
-          <input value="<?php echo $name ?>" name="name" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome do Curso">
+          <input value="<?php echo $name ?>" name="name" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome do Banner">
           <div class="items-center lg:grid lg:grid-cols-2">
             <div class="flex justify-center">
             <img class="max-h-44" src="./uploads/banners/<?php echo $img; ?>" onerror="this.src='../assets/img/semperfil.png'" alt="Profile">

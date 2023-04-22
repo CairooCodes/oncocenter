@@ -35,24 +35,53 @@ if (isset($_GET['delete_id'])) {
 				<div class="md:col-span-2 lg:col-span-1">
 					<a href="banners.php">
 						<div class="h-full py-8 px-6 space-y-6 rounded-xl text-2xl border border-gray-200 bg-color1 text-white">
-							<i class="bi bi-images"></i>
-							BANNERS
+							<div class="flex space-x-2">
+								<i class="bi bi-images"></i>
+								<h6>
+									BANNERS
+									<?php
+									$sth = $DB_con->prepare("SELECT count(*) as total from banners");
+									$sth->execute();
+									print_r($sth->fetchColumn());
+									?>
+								</h6>
+							</div>
 						</div>
 					</a>
 				</div>
 				<div class="md:col-span-2 lg:col-span-1">
 					<a href="servicos.php">
 						<div class="h-full py-8 px-6 space-y-6 rounded-xl text-2xl border border-gray-200 bg-color1 text-white">
-							<i class="fas fa-briefcase-medical"></i>
-							SERVIÇOS
+							<div class="flex space-x-2">
+								<i class="fas fa-briefcase-medical"></i>
+								<h6>
+									SERVIÇOS
+									<?php
+									$sth = $DB_con->prepare("SELECT count(*) as total from services");
+									$sth->execute();
+									print_r($sth->fetchColumn());
+									?>
+								</h6>
+							</div>
 						</div>
 					</a>
 				</div>
 				<div class="md:col-span-2 lg:col-span-1">
-					<a href="corpo_clinico.php">
+					<a href="convenios.php">
 						<div class="h-full py-8 px-6 space-y-6 rounded-xl text-2xl border border-gray-200 bg-color1 text-white">
-							<i class="bi bi-hospital"></i>
-							CORPO CLÍNICO
+							<div class="flex space-x-2">
+								<i class="bi bi-hospital"></i>
+								<h6>
+									CONVÊNIOS
+									<?php
+									$sth = $DB_con->prepare("SELECT count(*) as total from agreements");
+									$sth->execute();
+									print_r($sth->fetchColumn());
+									?>
+								</h6>
+							</div>
+
+
 						</div>
 					</a>
 				</div>
@@ -60,6 +89,13 @@ if (isset($_GET['delete_id'])) {
 			<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 				<div class="flex items-center justify-between py-4 bg-white">
 					<div>
+						<h4 class="font-bold text-gray-700">CORPO CLINICO:
+							<?php
+							$sth = $DB_con->prepare("SELECT count(*) as total from doctors");
+							$sth->execute();
+							print_r($sth->fetchColumn());
+							?> CADASTROS
+						</h4>
 					</div>
 					<div class="flex space-x-2">
 						<button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5" type="button">

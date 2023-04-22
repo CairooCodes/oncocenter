@@ -69,7 +69,7 @@ if (isset($_POST['btnsave'])) {
         <div class="flex w-full justify-center">
           <div class="space-y-6">
             <input name="name" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome do Serviço">
-            <textarea name="info" id="default" placeholder="Informações completas do curso"></textarea>
+            <textarea name="info" id="default" placeholder="Informações completas do serviço"></textarea>
             <div x-data="showImage()" class="flex items-center justify-centermt-32 mb-32">
               <div class="bg-white rounded-lg shadow-xl md:w-9/12 lg:w-1/2">
                 <div class="m-4">

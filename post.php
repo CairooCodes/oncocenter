@@ -9,20 +9,20 @@ $url = explode("/", $_SERVER['REQUEST_URI']);
 $get_url = $url[3];
 $get_url_2 = "";
 
-$stmt = $DB_con->prepare("SELECT * FROM clinical");
+$stmt = $DB_con->prepare("SELECT * FROM posts");
 $stmt->execute();
 if ($stmt->rowCount() > 0) {
 	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 		extract($row);
 		$string1 = remove_symbols_accents(utf8_decode($get_url));
-		$string2 = remove_symbols_accents(utf8_decode($name));
+		$string2 = remove_symbols_accents(utf8_decode($title));
 		if ($string1 == $string2) {
-			$get_url_2 = $name;
+			$get_url_2 = $title;
 		}
 	}
 }
 
-$stmt = $DB_con->prepare("SELECT * FROM clinical where name='$get_url_2'");
+$stmt = $DB_con->prepare("SELECT * FROM posts where title='$get_url_2'");
 $stmt->execute();
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	extract($row);
@@ -39,14 +39,9 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 <body>
 	<?php include "components/navbar.php"; ?>
 	<div class="mx-auto max-w-6xl pt-2">
-		<div class="items-center lg:grid lg:grid-cols-2">
-			<div class="lg:p-10 p-2">
-				<img class="rounded-md" src="<?php echo $URI->base("/admin/uploads/clinical/$img"); ?>">
-			</div>
-			<div class="lg:pt-4 lg:p-0 lg:p-10 p-5 text-justify">
-				<?php echo $info ?>
-			</div>
-		</div>
+		<h1 class="text-center text-5xl py-4 font-serif"><?php echo $title ?></h1>
+		<h2 class="text-center text-3xl py-4 font-serif"><?php echo $subtitle ?></h1>
+		<?php echo $info ?>
 	</div>
 	<?php include "components/footer.php"; ?>
 

@@ -9,7 +9,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	extract($row);
 }
 ?>
-<title><?php echo $title; ?></title>
+<title><?php echo $title_site; ?></title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 <meta content="<?php echo $description; ?>" name="description">
 <meta name="author" content="Cairo Felipe Developer">
 
-<meta property="og:title" content="<?php echo $title; ?>" />
+<meta property="og:title" content="<?php echo $title_site; ?>" />
 <meta property="og:url" content="<?php echo $url_site; ?>" />
 <meta property="og:image" content="<?php echo $URI->base("/assets/img/$icon"); ?>" />
 <meta property="og:description" content="<?php echo $description; ?>" />

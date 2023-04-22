@@ -19,7 +19,7 @@ if (isset($_POST['btnsave'])) {
   $imgSize = $_FILES['user_image']['size'];
 
   if (empty($name)) {
-    $errMSG = "Por favor, insira o nome do Curso";
+    $errMSG = "Por favor, insira o nome do user";
   }  
   else {
     $upload_dir = 'uploads/users/'; // upload directory

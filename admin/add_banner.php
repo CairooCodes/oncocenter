@@ -16,7 +16,7 @@ if (isset($_POST['btnsave'])) {
   $imgSize = $_FILES['user_image']['size'];
 
   if (empty($name)) {
-    $errMSG = "Por favor, insira o nome do Curso";
+    $errMSG = "Por favor, insira o nome do Banner";
   } else {
     $upload_dir = 'uploads/banners/';
     $imgExt =  strtolower(pathinfo($imgFile, PATHINFO_EXTENSION));

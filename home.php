@@ -20,6 +20,13 @@ require "config/url.class.php";
 	<?php include "components/services.php"; ?>
 	<?php include "components/agreements.php"; ?>
 	<?php include "components/infos_books.php"; ?>
+	<?php
+	$stmt = $DB_con->prepare("SELECT * FROM posts");
+	$stmt->execute();
+	if ($stmt->rowCount() > 0) {
+		include "components/blog.php";
+	}
+	?>
 	<?php include "components/footer.php"; ?>
 
 	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
