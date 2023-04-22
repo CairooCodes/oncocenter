@@ -1,6 +1,6 @@
+DirectoryIndex home.php
 RewriteEngine On
 RewriteCond %{HTTPS} off
-#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteRule ^home$ index.php [QSA,L,NC]
