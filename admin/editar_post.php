@@ -20,6 +20,7 @@ if (isset($_GET['edit_id']) && !empty($_GET['edit_id'])) {
 
 if (isset($_POST['btnsave'])) {
   $title = $_POST['title'];
+  $subtitle = $_POST['subtitle'];
   $info = $_POST['info'];
 
   $imgFile = $_FILES['user_image']['name'];
@@ -27,7 +28,8 @@ if (isset($_POST['btnsave'])) {
   $imgSize = $_FILES['user_image']['size'];
 
   if (empty($title)) {
-    $errMSG = "Por favor, insira o nome do Curso";
+    $errMSG = "Por favor, insira o nome do Post";
+    echo "<script> alert('insira um titulo para o Post')</script>";
   }
   if ($imgFile) {
     $upload_dir = 'uploads/posts/';
@@ -52,10 +54,12 @@ if (isset($_POST['btnsave'])) {
     $stmt = $DB_con->prepare('UPDATE posts
     SET 
     title=:utitle,
+    subtitle=:usubtitle,
     info=:uinfo,
     img=:upic
     WHERE id=:uid ;');
     $stmt->bindParam(':utitle', $title);
+    $stmt->bindParam(':usubtitle', $subtitle);
     $stmt->bindParam(':uinfo', $info);
     $stmt->bindParam(':upic', $userpic);
     $stmt->bindParam(':uid', $id);
@@ -104,8 +108,8 @@ if (isset($_POST['btnsave'])) {
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="space-y-6">
           <input value="<?php echo $title ?>" name="title" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Titulo do Post">
-          <input value="<?php echo $subtitle ?>" name="title" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Subtitulo do Post">
-          <textarea name="info" id="default" placeholder="Informações completas do curso"><?php echo $info ?></textarea>
+          <input value="<?php echo $subtitle ?>" name="subtitle" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Subtitulo do Post">
+          <textarea name="info" id="info"><?php echo $info ?></textarea>
           <div class="items-center lg:grid lg:grid-cols-2">
             <div class="flex justify-center">
               <?php
@@ -149,15 +153,8 @@ if (isset($_POST['btnsave'])) {
 
   <script>
     tinymce.init({
-      selector: 'textarea#default',
+      selector: '#info',
       plugins: 'print preview powerpaste casechange importcss tinydrive searchreplace autolink autosave save directionality advcode visualblocks visualchars fullscreen image link media mediaembed template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists checklist wordcount tinymcespellchecker a11ychecker imagetools textpattern noneditable help formatpainter permanentpen pageembed charmap tinycomments mentions quickbars linkchecker emoticons advtable export',
-      menu: {
-        tc: {
-          title: 'Comments',
-          items: 'addcomment showcomments deleteallconversations'
-        }
-      },
-      menubar: 'file edit view insert format tools table tc help',
       toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment'
     });
   </script>
