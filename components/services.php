@@ -22,7 +22,7 @@
             <h2 style="color:#1C1C1C !important"><?php echo $info ?></h2>
           </div>
           <div class="flex justify-center">
-            <a href="<?php echo $URI->base('/servico/' . slugify($name)); ?>" class="text-white bg-color1 focus:ring-4 rounded-md font-bold text-xl px-5 py-2 text-center">Saiba mais</a>
+            <a href="<?php echo $URI->base('servico/' . slugify($name)); ?>" class="text-white bg-color1 focus:ring-4 rounded-md font-bold text-xl px-5 py-2 text-center">Saiba mais</a>
           </div>
         </div>
       </div>

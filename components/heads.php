@@ -39,3 +39,15 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 		}
 	}
 </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BVFTDYGFE6"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
+
+	gtag('config', 'G-BVFTDYGFE6');
+</script>

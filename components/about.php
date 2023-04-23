@@ -10,7 +10,7 @@
         Oferecemos especialidades como: oncologia clínica e cirúrgica, aconselhamento genético em oncologia, radioterapia, mastologia, ginecologia, geriatria oncológica, infectologia, cirurgia vascular, cirurgia plástica, cirurgia torácica, nutrição oncológica, dentre outras.
       </h2>
       <div class="flex justify-center">
-        <a href="<?php echo $URI->base("/quem-somos.php"); ?>" class="border-2 border-color1 bg-color1 text-white focus:ring-4 rounded-md font-bold text-xl px-5 py-2 text-center">Saiba mais</a>
+        <a href="<?php echo $URI->base("quem-somos.php"); ?>" class="border-2 border-color1 bg-color1 text-white focus:ring-4 rounded-md font-bold text-xl px-5 py-2 text-center">Saiba mais</a>
       </div>
     </div>
   </div>

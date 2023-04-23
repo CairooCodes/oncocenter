@@ -9,7 +9,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 <header class="w-full">
   <nav class="border-gray-200 py-2.5 bg-white shadow">
     <div class="flex flex-wrap items-center justify-between max-w-6xl px-4 mx-auto">
-      <a href="<?php echo $URI->base("/"); ?>">
+      <a href="<?php echo $URI->base(""); ?>">
         <img src="<?php echo $URI->base("/assets/img/$logo"); ?>" class="logo" alt="<?php echo $title; ?>" />
       </a>
       <div class="items-center justify-center hidden w-full lg:flex lg:w-auto lg:order-1">
@@ -42,19 +42,19 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         </div>
         <ul class="flex flex-col mt-4 font-medium lg:flex-row text-sm lg:space-x-8 lg:mt-0">
           <li>
-            <a href="<?php echo $URI->base("/"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">HOME</a>
+            <a href="<?php echo $URI->base(""); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">HOME</a>
           </li>
           <li>
-            <a href="<?php echo $URI->base("/quem-somos"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">QUEM SOMOS</a>
+            <a href="<?php echo $URI->base("quem-somos"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">QUEM SOMOS</a>
           </li>
           <li>
             <a href="<?php echo $URI->base("#servicos"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">SERVIÇOS</a>
           </li>
           <li>
-            <a href="<?php echo $URI->base("/corpo_clinico"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">CORPO CLÍNICO</a>
+            <a href="<?php echo $URI->base("corpo_clinico"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">CORPO CLÍNICO</a>
           </li>
           <li>
-            <a href="<?php echo $URI->base("/politica-de-privacidade"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">LGPD</a>
+            <a href="<?php echo $URI->base("politica-de-privacidade"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">LGPD</a>
           </li>
         </ul>
       </div>
@@ -185,19 +185,19 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       </div>
       <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
         <li>
-          <a href="<?php echo $URI->base("/"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">HOME</a>
+          <a href="<?php echo $URI->base(""); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">HOME</a>
         </li>
         <li>
-          <a href="<?php echo $URI->base("/quem-somos"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">QUEM SOMOS</a>
+          <a href="<?php echo $URI->base("quem-somos"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">QUEM SOMOS</a>
         </li>
         <li>
           <a href="<?php echo $URI->base("#servicos"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">SERVIÇOS</a>
         </li>
         <li>
-          <a href="<?php echo $URI->base("/corpo_clinico"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">CORPO CLÍNICO</a>
+          <a href="<?php echo $URI->base("corpo_clinico"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">CORPO CLÍNICO</a>
         </li>
         <li>
-          <a href="<?php echo $URI->base("/politica-de-privacidade"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">LGPD</a>
+          <a href="<?php echo $URI->base("politica-de-privacidade"); ?>" class="block py-2 pl-3 pr-4 text-color1 rounded lg:p-0" aria-current="page">LGPD</a>
         </li>
       </ul>
     </div>

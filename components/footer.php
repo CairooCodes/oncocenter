@@ -12,19 +12,22 @@
         </h3>
         <ul class="text-white">
           <li class="mb-4">
-            <a href="<?php echo $URI->base("/#servicos"); ?>" class="hover:underline">Serviços</a>
+            <a href="<?php echo $URI->base("#servicos"); ?>" class="hover:underline">Serviços</a>
           </li>
           <li class="mb-4">
-            <a href="<?php echo $URI->base("/quem-somos"); ?>" class="hover:underline">Quem Somos</a>
+            <a href="<?php echo $URI->base("quem-somos"); ?>" class="hover:underline">Quem Somos</a>
           </li>
           <li class="mb-4">
-            <a href="<?php echo $URI->base("/servico/radioterapia"); ?>" class="hover:underline">Radioterapia</a>
+            <a href="<?php echo $URI->base("servico/radioterapia"); ?>" class="hover:underline">Radioterapia</a>
           </li>
           <li class="mb-4">
-            <a href="<?php echo $URI->base("/servico/quimioterapia"); ?>" class="hover:underline">Quimioterapia</a>
+            <a href="<?php echo $URI->base("servico/quimioterapia"); ?>" class="hover:underline">Quimioterapia</a>
           </li>
           <li class="mb-4">
-            <a href="<?php echo $URI->base('/politica-de-privacidade') ?>" class="hover:underline">Políticas de Privacidade</a>
+            <a href="<?php echo $URI->base('politica-de-privacidade') ?>" class="hover:underline">Políticas de Privacidade</a>
+          </li>
+          <li class="mb-4">
+            <a href="<?php echo $URI->base('admin/login.php') ?>" class="hover:underline">Login</a>
           </li>
         </ul>
       </div>
@@ -49,7 +52,7 @@
       </div>
     </div>
     <div class="text-center pt-10">
-      <span class="block text-base text-center text-white">© 2022 - Oncocenter Piauí
+      <span class="block text-base text-center text-white">© 2023 - Oncocenter Piauí
       </span>
       <span class="block text-xs text-center text-white">Centro Avançado de Radioncologia
       </span>
