@@ -17,6 +17,7 @@ if (isset($_GET['delete_id'])) {
 
 	header("Location: dashboard.php");
 }
+$page = 'dash';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

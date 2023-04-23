@@ -13,6 +13,8 @@ if (isset($_GET['delete_id'])) {
 
   header("Location: banners.php");
 }
+
+$page = 'banners';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

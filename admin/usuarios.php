@@ -13,6 +13,7 @@ if (isset($_GET['delete_id'])) {
 
   header("Location: usuarios.php");
 }
+$page = 'users';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

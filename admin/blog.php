@@ -13,7 +13,7 @@ if (isset($_GET['delete_id'])) {
 
   header("Location: blog.php");
 }
-
+$page = 'blog';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

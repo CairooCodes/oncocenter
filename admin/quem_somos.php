@@ -14,7 +14,7 @@ function getAbout($id)
   return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-
+$page = 'quemsomos';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

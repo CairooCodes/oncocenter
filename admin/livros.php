@@ -13,6 +13,7 @@ if (isset($_GET['delete_id'])) {
 
   header("Location: livros.php");
 }
+$page = 'books';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

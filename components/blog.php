@@ -27,7 +27,7 @@
             <h2><?php echo $subtitle ?></h2>
           </div>
           <div class="flex justify-center">
-            <a href="<?php echo $URI->base('/post/' . slugify($title)); ?>" class="text-white bg-color1 focus:ring-4 rounded-md font-bold text-xl px-5 py-2 text-center">Saiba mais</a>
+            <a href="<?php echo $URI->base('post/' . slugify($title)); ?>" class="text-white bg-color1 focus:ring-4 rounded-md font-bold text-xl px-5 py-2 text-center">Saiba mais</a>
           </div>
         </div>
       </div>
