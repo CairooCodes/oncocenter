@@ -29,7 +29,7 @@
         </a>
       </li>
       <li>
-        <a href="quem_somos.php" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-800 group">
+        <a href="quem_somos.php?id=1" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-800 group">
         <i class="bi bi-hospital"></i>
           <span class="group-hover:text-gray-700">Quem somos</span>
         </a>
