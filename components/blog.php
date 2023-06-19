@@ -12,19 +12,19 @@
     ?>
       <div class="swiper-slide bg-white rounded-lg">
         <div class="max-w-lg p-6 mx-auto rounded-xl shadow_csc">
-          <div class="rounded-xl">
+          <div class="rounded-xl h-16">
             <h3 class="mb-4 text-xl font-base py-2 text-center text-color1"><?php echo $title; ?></h3>
           </div>
           <div>
             <?php
             if (!empty($img)) {
               $img2 = base64_encode($img);
-              echo "<img class='rounded-md h-52 w-full' src='data:image/jpeg;base64," . $img2 . "'>";
+              echo "<img class='rounded-md h-46 w-full' src='data:image/jpeg;base64," . $img2 . "'>";
             }
             ?>
           </div>
           <div class="product_info">
-            <h2><?php echo $subtitle ?></h2>
+            <h2><?php echo $info ?></h2>
           </div>
           <div class="flex justify-center">
             <a href="<?php echo $URI->base('post/' . slugify($title)); ?>" class="text-white bg-color1 focus:ring-4 rounded-md font-bold text-xl px-5 py-2 text-center">Saiba mais</a>

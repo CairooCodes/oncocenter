@@ -42,7 +42,9 @@ require "config/url.class.php";
 			autoplay: {
 				delay: 2000,
 			},
+			centeredSlides: true,
 			freeMode: true,
+			loop: true,
 			breakpoints: {
 				300: {
 					slidesPerView: 1.1,
