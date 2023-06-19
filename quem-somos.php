@@ -22,9 +22,9 @@ $abouts = getAbout();
 	<?php include "components/navbar.php"; ?>
 	<div class="mx-auto max-w-6xl pt-2 about">
 		<div class="lg:pt-4 lg:p-0 lg:p-10 p-5">
-		<?php foreach ($abouts as $about) { ?>
-			<?php echo $about['maintext']; ?>
-			<?php } ?>
+			<?php foreach ($abouts as $about) {
+				echo $about['maintext'];
+			} ?>
 		</div>
 		<?php include "components/services_in_about.php"; ?>
 	</div>
