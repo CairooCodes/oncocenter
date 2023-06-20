@@ -38,12 +38,39 @@ require "config/url.class.php";
 		});
 	</script>
 	<script>
-		var swiper = new Swiper(".swiper_services", {
-			autoplay: {
-				delay: 2000,
-			},
+		var swiper = new Swiper(".swiper_blog", {
 			centeredSlides: true,
-			freeMode: true,
+			loop: true,
+			breakpoints: {
+				300: {
+					slidesPerView: 1.1,
+					spaceBetween: 1,
+				},
+				640: {
+					slidesPerView: 2,
+					spaceBetween: 5,
+				},
+				768: {
+					slidesPerView: 3,
+					spaceBetween: 5,
+				},
+				1024: {
+					slidesPerView: 3,
+					spaceBetween: 5,
+				},
+			},
+			pagination: {
+				el: ".swiper-pagination",
+				clickable: true,
+			},
+			navigation: {
+				nextEl: ".swiper-button-next",
+				prevEl: ".swiper-button-prev",
+			},
+		});
+	</script>
+	<script>
+		var swiper = new Swiper(".swiper_services", {
 			loop: true,
 			breakpoints: {
 				300: {

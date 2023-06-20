@@ -27,3 +27,12 @@
 @media (min-width: 768px) {
   
 }
+
+.swiper-btn-blog {
+  position: absolute;
+  top:400px;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #206672;
+}
