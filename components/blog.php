@@ -23,7 +23,7 @@
             }
             ?>
           </div>
-          <div>
+          <div class="product_info">
             <h2><?php echo $subtitle ?></h2>
           </div>
           <div class="flex justify-center">

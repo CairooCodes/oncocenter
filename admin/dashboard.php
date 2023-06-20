@@ -3,10 +3,7 @@ session_start();
 require '../db_config.php';
 require "../functions/get.php";
 
-if (isset($_SESSION['logado'])) :
-else :
-	header("Location:login.php");
-endif;
+
 
 $doctors = getDoctors();
 

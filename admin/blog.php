@@ -52,7 +52,7 @@ $page = 'blog';
             }
             ?>
             <div>
-              <a href="editar_post.php?edit_id=<?php echo $post['id']; ?>">
+              <a href="editar_post.php?id=<?php echo $post['id']; ?>">
                 <button class="bg-color1 text-white px-3 py-2 rounded-md my-2">
                   editar
                 </button>
