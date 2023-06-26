@@ -41,6 +41,11 @@ $page = 'blog';
           Adicionar Postagem
         </button>
       </a>
+      <a href="add_fotos.php">
+        <button class="rigth bg-green-600 text-white px-3 py-2 rounded-md my-2">
+          Adicionar Albúm de Fotos
+        </button>
+      </a>
       <div class="pt-4 grid justify-items-center gap-6 md:grid-cols-2 lg:grid-cols-3">
         <?php foreach ($posts as $post) { ?>
           <div class="md:col-span-2 grid justify-items-center lg:col-span-1">

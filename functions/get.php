@@ -24,3 +24,10 @@ function getPosts()
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function getAlbum()
+{
+  global $pdo;
+  $stmt = $pdo->prepare("SELECT * FROM posts where type = 'fotos' order by id desc");
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

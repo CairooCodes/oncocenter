@@ -4,6 +4,7 @@ require "../../db_config.php";
 $title = $_POST['title'];
 $subtitle = $_POST['subtitle'];
 $info = $_POST['info'];
+$type = $_POST['type'];
 
 $dom = new DOMDocument();
 $dom->loadHTML($info);
@@ -16,8 +17,8 @@ if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
 
 $new_info = $dom->saveHTML();
 
-$sql = "INSERT INTO posts (title, info, img, subtitle) VALUES (?,?,?,?)";
+$sql = "INSERT INTO posts (title, info, img, subtitle, type) VALUES (?,?,?,?,?)";
 $stmt = $DB_con->prepare($sql);
 $img_lob = $img . PDO::PARAM_LOB;
-$stmt->execute([$title, $info, $img_lob, $subtitle]);
+$stmt->execute([$title, $info, $img_lob, $subtitle, $type]);
 header('Location: ../blog.php');
