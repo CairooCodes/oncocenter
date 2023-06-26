@@ -20,7 +20,7 @@ function remove_simbolos_acentos($string)
 
 
 $url = explode("/", $_SERVER['REQUEST_URI']);
-$idpost = $url[3];
+$idpost = $url[4];
 
 $idpost2 = "";
 
@@ -70,10 +70,10 @@ if ($stmt->rowCount() > 0) {
     <?php }
     ?>
 
-
-    <?php include "./components/footer.php" ?>
-    <script src="./assets/js/script.js"></script>
-    <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
+  </div>
+  <?php include "./components/footer.php" ?>
+  <script src="./assets/js/script.js"></script>
+  <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
 </body>
 
 </html>
