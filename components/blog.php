@@ -5,7 +5,7 @@
     </h2>
   </div>
   <div class="swiper-wrapper">
-    <?php $stmt = $DB_con->prepare("SELECT * FROM posts order by id desc");
+    <?php $stmt = $DB_con->prepare("SELECT * FROM posts where type='blog' order by id desc");
     $stmt->execute();
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       extract($row);
