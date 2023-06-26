@@ -19,7 +19,7 @@ function getDoctors()
 function getPosts()
 {
   global $DB_con;
-  $stmt = $DB_con->prepare("SELECT * FROM posts order by id desc");
+  $stmt = $DB_con->prepare("SELECT * FROM posts  where type = 'blog' order by id desc");
   $stmt->execute();
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
