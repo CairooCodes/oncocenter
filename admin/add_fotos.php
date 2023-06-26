@@ -25,7 +25,7 @@ endif;
       <form action="./controllers/add_post.php" method="POST" enctype="multipart/form-data">
         <div class="flex w-full justify-center">
           <div class="space-y-6">
-          <input type="hidden" name="type" value="fotos">
+            <input type="hidden" name="type" value="fotos">
             <input name="title" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Titulo da postagem">
             <input name="subtitle" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Subtitulo da postagem">
             <textarea name="info" id="info"></textarea>
@@ -46,6 +46,8 @@ endif;
                       <input type="file" id="img" name="img" class="opacity-0" accept="image/*" @change="showPreview(event)">
                     </label>
                   </div>
+                  <label class="block mt-5">Imagens</label>
+                  <input type="file" name="imagens[]" multiple>
                 </div>
               </div>
             </div>
