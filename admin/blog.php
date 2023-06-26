@@ -116,7 +116,6 @@ $page = 'blog';
             <?php } ?>
           </tbody>
         </table>
-        <?php include "./components/modal_add_posts.php"; ?>
       </div>
     </div>
   </div>
