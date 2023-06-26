@@ -25,6 +25,7 @@ endif;
       <form action="./controllers/add_post.php" method="POST" enctype="multipart/form-data">
         <div class="flex w-full justify-center">
           <div class="space-y-6">
+            <input type="hidden" name="type" value="blog">
             <input name="title" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Titulo da postagem">
             <input name="subtitle" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Subtitulo da postagem">
             <textarea name="info" id="info"></textarea>
