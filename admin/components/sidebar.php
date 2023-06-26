@@ -32,7 +32,7 @@
       <li>
         <a href="blog.php" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-800 group <?php if ($page=='blog') { echo 'bg-color1 text-white';} ?>">
           <i class="bi bi-newspaper"></i>
-          <span class="group-hover:text-gray-700">Blog e Fotos</span>
+          <span class="group-hover:text-gray-700">Blogs e Fotos</span>
         </a>
       </li>
       <li>
