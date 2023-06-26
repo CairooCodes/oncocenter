@@ -6,11 +6,6 @@
       </a>
     </div>
 
-    <div class="mt-2 text-center">
-      <img src="./uploads/users/<?php echo $_SESSION['img']; ?>" onerror="this.src='../assets/img/semperfil.png'" alt="" class="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28">
-      <h5 class="hidden mt-2 text-md font-semibold text-gray-800 lg:block"><?php echo $_SESSION['name']; ?></h5>
-    </div>
-
     <ul class="space-y-2 tracking-wide mt-3">
       <li>
         <a href="dashboard.php" aria-label="dashboard" class="relative px-4 py-3 flex items-center space-x-4 rounded-xl <?php if ($page=='dash') { echo 'bg-color1 text-white';} ?>">
