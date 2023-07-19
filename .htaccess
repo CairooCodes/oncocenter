@@ -5,6 +5,7 @@ RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteRule ^home$ index.php [QSA,L,NC]
 RewriteRule ^corpo_clinico$ corpo_clinico.php [QSA,L,NC]
+RewriteRule ^informativos$ informativos.php [QSA,L,NC]
 RewriteRule ^album-de-fotos$ album-de-fotos.php [QSA,L,NC]
 RewriteRule ^quem-somos$ quem-somos.php [QSA,L,NC]
 RewriteRule ^politica-de-privacidade$ lgpd.php [QSA,L,NC]
