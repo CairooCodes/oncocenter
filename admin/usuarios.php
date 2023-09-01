@@ -1,10 +1,18 @@
 <?php
 session_start();
-if (isset($_SESSION['logado'])) :
-else :
-  header("Location:login.php");
-endif;
 require "../db_config.php";
+require "../functions/get.php";
+
+if (!isset($_SESSION['id'])) {
+  header('Location: login.php');
+  exit;
+}
+
+$user_id = $_SESSION['id'] ?? null;
+$sql = "SELECT name, email, img FROM users WHERE id = ?";
+$stmt = $DB_con->prepare($sql);
+$stmt->execute([$user_id]);
+$user = $stmt->fetch();
 
 if (isset($_GET['delete_id'])) {
   $stmt_delete = $DB_con->prepare('DELETE FROM users WHERE id =:uid');
