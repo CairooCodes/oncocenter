@@ -6,7 +6,7 @@ require "config/functions.php";
 $URI = new URI();
 
 $url = explode("/", $_SERVER['REQUEST_URI']);
-$get_url = $url[4];
+$get_url = $url[3];
 $get_url_2 = "";
 
 $stmt = $DB_con->prepare("SELECT * FROM posts");

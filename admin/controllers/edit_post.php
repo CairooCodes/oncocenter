@@ -3,17 +3,30 @@ require "../../db_config.php";
 require "../../functions/update.php";
 if (!empty($_GET['id'])) {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
     $title = $_POST['title'];
     $subtitle = $_POST['subtitle'];
-    $id = $_POST['id'];
     $info = $_POST['info'];
-    $img = null;
+
+    $uploadDir = '../uploads/post/';
+
+    $imgPath = null;
 
     if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
-      $img = file_get_contents($_FILES['img']['tmp_name']);
+      $imgTmpName = $_FILES['img']['tmp_name'];
+      $imgName = $_FILES['img']['name'];
+
+      $uniqueName = uniqid() . '_' . $imgName;
+
+      if (move_uploaded_file($imgTmpName, $uploadDir . $uniqueName)) {
+        $imgPath = $uniqueName;
+      } else {
+        echo 'Erro ao fazer o upload da imagem.';
+        exit;
+      }
     }
 
-    updatePost($id, $title, $subtitle, $info, $img);
+    updatePost($id, $title, $subtitle, $info, $imgPath);
     header('Location: ../blog.php');
     exit();
   }
