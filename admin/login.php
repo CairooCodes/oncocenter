@@ -39,10 +39,10 @@ session_start();
         <form action="./controllers/auth.php" method="POST">
           <div class="space-y-6">
             <div class="">
-              <input name="email" class="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400" type="" placeholder="Email">
+              <input name="email" class="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:border-color1" type="" placeholder="Email">
             </div>
             <div class="relative" x-data="{ show: true }">
-              <input name="password" placeholder="Password" :type="show ? 'password' : 'text'" class="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400">
+              <input name="password" placeholder="Password" :type="show ? 'password' : 'text'" class="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:border-color1">
               <div class="flex items-center absolute inset-y-0 right-0 mr-3  text-sm leading-5">
 
                 <svg @click="show = !show" :class="{'hidden': !show, 'block':show }" class="h-4 text-color1" fill="none" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 576 512">
@@ -66,7 +66,7 @@ session_start();
         <div class="mt-7 text-center text-gray-700 text-xs">
           <span>
             Sistema Administrativo ©
-            <a href="#" rel="" target="_blank" title="" class="text-color1 hover:text-color1 ">Oncocenter
+            <a href="registro.php" rel="" target="_blank" title="" class="text-color1 hover:text-color1 ">Oncocenter
           </span>
         </div>
       </div>
