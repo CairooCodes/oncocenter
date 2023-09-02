@@ -1,12 +1,19 @@
 <?php
 session_start();
-date_default_timezone_set('America/Sao_Paulo');
-ini_set('default_charset', 'utf-8');
-require '../db_config.php';
-if (isset($_SESSION['logado'])) :
-else :
-  header("Location:login.php");
-endif;
+require "../db_config.php";
+require "../functions/get.php";
+
+if (!isset($_SESSION['id'])) {
+  header('Location: login.php');
+  exit;
+}
+
+$user_id = $_SESSION['id'] ?? null;
+
+$sql = "SELECT name, email, img FROM users WHERE id = ?";
+$stmt = $DB_con->prepare($sql);
+$stmt->execute([$user_id]);
+$user = $stmt->fetch();
 
 if (isset($_GET['edit_id']) && !empty($_GET['edit_id'])) {
   $id = $_GET['edit_id'];
@@ -21,7 +28,6 @@ if (isset($_GET['edit_id']) && !empty($_GET['edit_id'])) {
 if (isset($_POST['btnsave'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $login = $_POST['login'];
     $password = $_POST['password'];
 
   $imgFile = $_FILES['user_image']['name'];
@@ -54,13 +60,11 @@ if (isset($_POST['btnsave'])) {
     $stmt = $DB_con->prepare('UPDATE users
     SET 
     name=:uname,
-    login=:ulogin,
     email=:uemail,
     password=:upassword,
     img=:upic
     WHERE id=:uid ;');
    $stmt->bindParam(':uname', $name);
-   $stmt->bindParam(':ulogin', $login);
    $stmt->bindParam(':uemail', $email);
    $stmt->bindParam(':upassword', $password);
    $stmt->bindParam(':upic', $userpic);
@@ -113,7 +117,7 @@ if (isset($_POST['btnsave'])) {
             <div class="grid md:grid-cols-2 gap-6">
             <input name="name" value="<?php echo $name ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome">
             <input name="email" value="<?php echo $email ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Email">
-            <input name="login" value="<?php echo $login ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Login">
+            <!-- <input name="login" value="<?php //echo $login ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Login"> -->
             <input name="password"  value="<?php echo $password ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="password" placeholder="Senha">
             </div>
             <div class="items-center lg:grid lg:grid-cols-2">
