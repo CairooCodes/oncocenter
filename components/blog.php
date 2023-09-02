@@ -16,12 +16,7 @@
             <h3 class="mb-4 text-xl font-base py-2 text-center text-color1"><?php echo $title; ?></h3>
           </div>
           <div>
-            <?php
-            if (!empty($img)) {
-              $img2 = base64_encode($img);
-              echo "<img class='rounded-md h-46 w-full' src='data:image/jpeg;base64," . $img2 . "'>";
-            }
-            ?>
+          <img class='lazy rounded-md h-52 w-full' src='./admin/uploads/post/<?php echo $img; ?>'>
           </div>
           <div class="product_info">
             <h2><?php echo $subtitle ?></h2>

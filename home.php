@@ -2,6 +2,9 @@
 require "db_config.php";
 require "config/helper.php";
 require "config/url.class.php";
+require "./functions/get.php";
+
+$posts = getPosts();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

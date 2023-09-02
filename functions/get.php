@@ -32,10 +32,3 @@ function getAlbum()
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getPost($id)
-{
-  global $DB_con;
-  $stmt = $DB_con->prepare("SELECT * FROM posts where id = $id order by id desc");
-  $stmt->execute();
-  return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}

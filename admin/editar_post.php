@@ -1,12 +1,19 @@
 <?php
 session_start();
-date_default_timezone_set('America/Sao_Paulo');
-ini_set('default_charset', 'utf-8');
-require '../db_config.php';
-if (isset($_SESSION['logado'])) :
-else :
-  header("Location:login.php");
-endif;
+require "../db_config.php";
+require "../functions/get.php";
+
+if (!isset($_SESSION['id'])) {
+  header('Location: login.php');
+  exit;
+}
+
+$user_id = $_SESSION['id'] ?? null;
+
+$sql = "SELECT name, email, img FROM users WHERE id = ?";
+$stmt = $DB_con->prepare($sql);
+$stmt->execute([$user_id]);
+$user = $stmt->fetch();
 
 $id = $_GET['id'];
 $post = getPost($id);
@@ -14,10 +21,9 @@ $post = getPost($id);
 function getPost($id)
 {
   global $DB_con;
-  $stmt = $DB_con->prepare("SELECT * FROM posts WHERE id = :id");
-  $stmt->bindParam(':id', $id);
+  $stmt = $DB_con->prepare("SELECT * FROM posts where id = $id order by id desc");
   $stmt->execute();
-  return $stmt->fetch(PDO::FETCH_ASSOC);
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 <!DOCTYPE html>
@@ -49,19 +55,19 @@ function getPost($id)
   <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
     <?php include "components/header.php" ?>
     <div class="px-6 pt-6 2xl:container">
-      <form action="./controllers/edit_post.php?id=<?php echo $post['id']; ?>" method="POST" enctype="multipart/form-data">
+      <form action="./controllers/edit_post.php?id=<?php echo $post[0]['id']; ?>" method="POST" enctype="multipart/form-data">
         <div class="space-y-6">
-          <input value="<?php echo $post['title']; ?>" name="title" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Titulo do Post">
-          <input value="<?php echo $post['subtitle']; ?>" name="subtitle" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Subtitulo do Post">
-          <textarea name="info" id="info"><?php echo $post['info']; ?></textarea>
+          <input value="<?php echo $post[0]['title']; ?>" name="title" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Titulo do Post">
+          <input value="<?php echo $post[0]['subtitle']; ?>" name="subtitle" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Subtitulo do Post">
+          <textarea name="info" id="info"><?php echo $post[0]['info']; ?></textarea>
           <div class="lg:grid lg:grid-cols-2">
             <div class="flex justify-center">
             <input type="file" id="img" name="img">
             </div>
           </div>
-          <input id="id" name="id" type="hidden" value="<?php echo $post['id']; ?>">
+          <input id="id" name="id" type="hidden" value="<?php echo $post[0]['id']; ?>">
           <button type="submit" name="btnsave" class=" w-1/2 flex justify-center bg-color1 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
-            Editar Posts
+            Editar Post
           </button>
         </div>
       </form>

@@ -14,12 +14,6 @@ $stmt = $DB_con->prepare($sql);
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 
-$user_id = $_SESSION['id'] ?? null;
-$sql = "SELECT name, email, img FROM users WHERE id = ?";
-$stmt = $DB_con->prepare($sql);
-$stmt->execute([$user_id]);
-$user = $stmt->fetch();
-
 
 $posts = getPosts();
 $page = 'blog';
@@ -101,12 +95,7 @@ $page = 'blog';
             <?php foreach ($posts as $posts) { ?>
               <tr class="bg-white border-b">
                 <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                  <?php
-                  if (!empty($posts['img'])) {
-                    $img = base64_encode($posts['img']);
-                    echo "<img class='w-10' src='data:image/jpeg;base64," . $img . "'>";
-                  }
-                  ?>
+                  <img class='lazy w-10' src='./uploads/post/<?php echo $posts['img']; ?>'>
                   <div class="pl-3">
                     <div class="text-base font-semibold"><?php echo $posts['title']; ?></div>
                   </div>
