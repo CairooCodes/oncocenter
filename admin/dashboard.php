@@ -158,7 +158,7 @@ $page = 'dash';
 									<?php echo $doctor['crm']; ?>
 								</td>
 								<td class="px-6 py-4">
-									<a href="./editar_doctor.php?edit_id=<?php echo $doctor['id']; ?>" type="button" class="font-medium text-blue-600 hover:underline">Editar</a>
+									<a href="./editar_doctor.php?id=<?php echo $doctor['id']; ?>" type="button" class="font-medium text-blue-600 hover:underline">Editar</a>
 									<a href="./controllers/delete_doctor.php?id=<?php echo $doctor['id']; ?>" type="button" class="font-medium text-red-600 hover:underline">Excluir</a>
 								</td>
 							</tr>

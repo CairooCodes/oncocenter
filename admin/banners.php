@@ -53,7 +53,7 @@ $page = 'banners';
             <h1 class="text-center text-lg font-bold text-color1"><?php echo $banner['name']; ?></h1>
             <img class="max-h-48" src="./uploads/banners/<?php echo $banner['img'] ?>">
             <div>
-              <a href="./editar_banner.php?edit_id=<?php echo $banner['id']; ?>" type="button" class="bg-color1 text-white px-3 py-2 rounded-md my-2">
+              <a href="./editar_banner.php?id=<?php echo $banner['id']; ?>" type="button" class="bg-color1 text-white px-3 py-2 rounded-md my-2">
                 Editar
               </a>
               <a href="./controllers/delete_banner.php?id=<?php echo $banner['id']; ?>" type="button" class="bg-red-600 text-white px-3 py-2 rounded-md my-2">
