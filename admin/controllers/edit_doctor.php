@@ -33,7 +33,7 @@ if (!empty($_GET['id'])) {
       }
     }
     
-    updateDoctorupdateDoctor($id, $name, $specialty, $crm, $contact, $date_nasc, $email, $instagram, $curriculum, $imgPath, $rqe, $title_office);
+    updateDoctor($id, $name, $specialty, $crm, $contact, $date_nasc, $email, $instagram, $curriculum, $imgPath, $rqe, $title_office);
     header('Location: ../dashboard.php');
     exit();
   }

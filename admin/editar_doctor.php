@@ -97,9 +97,10 @@ function getDoctor($id)
               </div>
               <div class="grid">
                 <label for="Titulo de cargo">Titulo de cargo:</label>
-                <input name="title_office" value="<?php echo $title_office ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Titulo de cargo">
+                <input name="title_office" value="<?php echo $doctor['title_office'] ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Titulo de cargo">
               </div>
             </div>
+            <input id="id" name="id" type="hidden" value="<?php echo $doctor['id']; ?>">
             <div class="items-center lg:grid lg:grid-cols-2">
               <div class="flex justify-center"><img class="h-72 " src="./uploads/doctors/<?php echo $doctor['img']; ?>" onerror="this.src='../assets/img/semperfil.png'" alt="Profile"></div>
               <div x-data="showImage()" class="flex items-center justify-centermt-32 mb-32">
@@ -116,7 +117,7 @@ function getDoctor($id)
                           <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                             Escolha uma foto</p>
                         </div>
-                        <input type="file" name="user_image" class="opacity-0" accept="image/*" @change="showPreview(event)" />
+                        <input type="file" id="img" name="img" class="opacity-0" accept="img" @change="showPreview(event)" />
                       </label>
                     </div>
                   </div>

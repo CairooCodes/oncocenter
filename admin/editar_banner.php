@@ -62,11 +62,13 @@ function getBanner($id)
     <div class="px-6 pt-6 2xl:container">
       <form action="./controllers/edit_banner.php?id=<?php echo $banner['id']; ?>" method="POST" enctype="multipart/form-data">
         <div class="space-y-6">
+          <label class="inline-block mb-2">Nome</label>
           <input value="<?php echo $banner['name']; ?>" name="name" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome do Banner">
           <div class="items-center lg:grid lg:grid-cols-2">
             <div class="flex justify-center">
               <img class="max-h-44" src="./uploads/banners/<?php echo $banner['img']; ?>" onerror="this.src='../assets/img/semperfil.png'" alt="Profile">
             </div>
+            <input id="id" name="id" type="hidden" value="<?php echo $banner['id']; ?>">
             <div x-data="showImage()" class="flex items-center justify-centermt-32 mb-32">
               <div class="bg-white rounded-lg shadow-xl md:w-9/12 lg:w-1/2">
                 <div class="m-4">
@@ -81,7 +83,7 @@ function getBanner($id)
                         <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                           Escolha uma foto</p>
                       </div>
-                      <input type="file" name="img" class="opacity-0" accept="image/*" @change="showPreview(event)" />
+                      <input type="file" id="img" name="img" class="opacity-0" accept="img" @change="showPreview(event)" />
                     </label>
                   </div>
                 </div>
