@@ -4,8 +4,8 @@ require "../db_config.php";
 require "../functions/get.php";
 
 if (!isset($_SESSION['id'])) {
-  header('Location: login.php');
-  exit;
+	header('Location: login.php');
+	exit;
 }
 
 $user_id = $_SESSION['id'] ?? null;
@@ -107,9 +107,8 @@ $page = 'dash';
 							<div id="dropdownAction" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
 								<ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownActionButton">
 									<li>
-										<a href="add_profissional.php">
-											<button class="block px-4 py-2 hover:bg-gray-100">Adicionar Médico</button>
-										</a>
+										<button data-modal-target="addDoctorModal" data-modal-show="addDoctorModal" class="block px-4 py-2 hover:bg-gray-100">Adicionar Médico</button>
+
 									</li>
 								</ul>
 							</div>
@@ -146,7 +145,7 @@ $page = 'dash';
 							<tr class="bg-white border-b">
 								<th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
 
-									<img class="w-12 h-12 rounded-full" src="./uploads/doctors/<?php echo $doctor['img'] ?>" onerror='this.src="semperfil.png"' />
+									<img class="w-12 h-12 rounded-full" src="./uploads/doctors/<?php echo $doctor['img'] ?>" onerror='this.src="../assets/img/semperfil.png"' />
 
 									<div class="pl-3">
 										<div class="text-base font-semibold"><?php echo $doctor['name']; ?></div>
@@ -159,13 +158,14 @@ $page = 'dash';
 									<?php echo $doctor['crm']; ?>
 								</td>
 								<td class="px-6 py-4">
-									<a href="editar_doctors.php?edit_id=<?php echo $doctor['id']; ?>" type="button" class="font-medium text-blue-600 hover:underline">Editar</a>
-									<a href="?delete_id=<?php echo $doctor['id']; ?>" type="button" class="font-medium text-red-600 hover:underline">Excluir</a>
+									<a href="./editar_doctor.php?edit_id=<?php echo $doctor['id']; ?>" type="button" class="font-medium text-blue-600 hover:underline">Editar</a>
+									<a href="./controllers/delete_doctor.php?id=<?php echo $doctor['id']; ?>" type="button" class="font-medium text-red-600 hover:underline">Excluir</a>
 								</td>
 							</tr>
 						<?php } ?>
 					</tbody>
 				</table>
+				<?php include "./components/modal_add_doctor.php"; ?>
 			</div>
 		</div>
 	</div>

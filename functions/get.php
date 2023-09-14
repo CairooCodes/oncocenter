@@ -8,6 +8,14 @@ function getAbout()
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function getBanners()
+{
+  global $DB_con;
+  $stmt = $DB_con->prepare("SELECT * FROM banners");
+  $stmt->execute();
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function getDoctors()
 {
   global $DB_con;

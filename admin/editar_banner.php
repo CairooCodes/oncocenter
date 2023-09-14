@@ -1,73 +1,30 @@
 <?php
 session_start();
-date_default_timezone_set('America/Sao_Paulo');
-ini_set('default_charset', 'utf-8');
-require '../db_config.php';
-if (isset($_SESSION['logado'])) :
-else :
-  header("Location:login.php");
-endif;
+require "../db_config.php";
+require "../functions/get.php";
 
-if (isset($_GET['edit_id']) && !empty($_GET['edit_id'])) {
-  $id = $_GET['edit_id'];
-  $stmt_edit = $DB_con->prepare('SELECT * FROM banners WHERE id =:uid');
-  $stmt_edit->execute(array(':uid' => $id));
-  $edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
-  extract($edit_row);
-} else {
-  header("Location: dashboard.php");
+if (!isset($_SESSION['id'])) {
+  header('Location: login.php');
+  exit;
+}
+$user_id = $_SESSION['id'] ?? null;
+$sql = "SELECT name, email, img FROM users WHERE id = ?";
+$stmt = $DB_con->prepare($sql);
+$stmt->execute([$user_id]);
+$user = $stmt->fetch();
+
+$id = $_GET['id'];
+$banner = getBanner($id);
+
+function getBanner($id)
+{
+  global $DB_con;
+  $stmt = $DB_con->prepare("SELECT * FROM banners WHERE id = :id");
+  $stmt->bindParam(':id', $id);
+  $stmt->execute();
+  return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-if (isset($_POST['btnsave'])) {
-  $name = $_POST['name'];
-
-  $imgFile = $_FILES['user_image']['name'];
-  $tmp_dir = $_FILES['user_image']['tmp_name'];
-  $imgSize = $_FILES['user_image']['size'];
-
-  if (empty($name)) {
-    $errMSG = "Por favor, insira o nome do Banner";
-  }
-  if ($imgFile) {
-    $upload_dir = 'uploads/banners/';
-    $imgExt =  strtolower(pathinfo($imgFile, PATHINFO_EXTENSION));
-    $valid_extensions = array('jpeg', 'jpg', 'png', 'webp');
-
-    $userpic = rand(1000, 1000000) . "." . $imgExt;
-
-    // allow valid image file formats
-    if (in_array($imgExt, $valid_extensions)) {
-      // Check file size '5MB'
-      if ($imgSize < 5000000) {
-        move_uploaded_file($tmp_dir, $upload_dir . $userpic);
-      } else {
-        $errMSG = "Imagem muito grande.";
-      }
-    }
-  } else {
-    $userpic = $img;
-  }
-  if (!isset($errMSG)) {
-    $stmt = $DB_con->prepare('UPDATE banners
-    SET 
-    name=:uname,
-    img=:upic
-    WHERE id=:uid ;');
-    $stmt->bindParam(':uname', $name);
-    $stmt->bindParam(':upic', $userpic);
-    $stmt->bindParam(':uid', $id);
-
-    if ($stmt->execute()) {
-      echo ("<script>
-        alert (\"Banner atualizado com sucesso\")
-        window.location.href = './banners.php';
-        </script>"
-      );
-    } else {
-      $errMSG = "Erro..";
-    }
-  }
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -86,6 +43,7 @@ if (isset($_POST['btnsave'])) {
             color1: '#006CAC',
             color2: '#FFFFFF',
             color3: '#0070AC',
+            color4: '#206672',
           }
         }
       }
@@ -96,14 +54,18 @@ if (isset($_POST['btnsave'])) {
 <body>
   <?php include "components/sidebar.php" ?>
   <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-    <?php include "components/header.php" ?>
+    <div class="flex items-start justify-between p-4 border-b rounded-t">
+      <h3 class="text-2xl text-gray-600 font-medium lg:block">
+        Editar Banner
+      </h3>
+    </div>
     <div class="px-6 pt-6 2xl:container">
-      <form action="" method="POST" enctype="multipart/form-data">
+      <form action="./controllers/edit_banner.php?id=<?php echo $banner['id']; ?>" method="POST" enctype="multipart/form-data">
         <div class="space-y-6">
-          <input value="<?php echo $name ?>" name="name" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome do Banner">
+          <input value="<?php echo $banner['name']; ?>" name="name" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome do Banner">
           <div class="items-center lg:grid lg:grid-cols-2">
             <div class="flex justify-center">
-            <img class="max-h-44" src="./uploads/banners/<?php echo $img; ?>" onerror="this.src='../assets/img/semperfil.png'" alt="Profile">
+              <img class="max-h-44" src="./uploads/banners/<?php echo $banner['img']; ?>" onerror="this.src='../assets/img/semperfil.png'" alt="Profile">
             </div>
             <div x-data="showImage()" class="flex items-center justify-centermt-32 mb-32">
               <div class="bg-white rounded-lg shadow-xl md:w-9/12 lg:w-1/2">
@@ -119,14 +81,14 @@ if (isset($_POST['btnsave'])) {
                         <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                           Escolha uma foto</p>
                       </div>
-                      <input type="file" name="user_image" class="opacity-0" accept="image/*" @change="showPreview(event)" />
+                      <input type="file" name="img" class="opacity-0" accept="image/*" @change="showPreview(event)" />
                     </label>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <button type="submit" name="btnsave" class=" w-1/2 flex justify-center bg-color1 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
+          <button type="submit" name="btnsave" class=" w-1/2 flex justify-center bg-color4 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
             Editar Banner
           </button>
         </div>

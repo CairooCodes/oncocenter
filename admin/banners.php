@@ -22,6 +22,7 @@ if (isset($_GET['delete_id'])) {
   header("Location: banners.php");
 }
 
+$banners = getBanners();
 $page = 'banners';
 ?>
 <!DOCTYPE html>
@@ -47,26 +48,17 @@ $page = 'banners';
         </button>
       </a>
       <div class="pt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <?php
-        $stmt = $DB_con->prepare("SELECT * FROM banners order by id desc");
-        $stmt->execute();
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-          extract($row);
-        ?>
+        <?php foreach ($banners as $banner) { ?>
           <div class="grid justify-items-center md:col-span-2 lg:col-span-1">
-            <h1 class="text-center text-lg font-bold text-color1"><?php echo $name; ?></h1>
-            <img class="max-h-48" src="./uploads/banners/<?php echo $img ?>" onerror="this.src='../assets/img/semperfil.png'"/>
+            <h1 class="text-center text-lg font-bold text-color1"><?php echo $banner['name']; ?></h1>
+            <img class="max-h-48" src="./uploads/banners/<?php echo $banner['img'] ?>">
             <div>
-            <a href="editar_banner.php?edit_id=<?php echo $row['id']; ?>">
-              <button class="bg-color1 text-white px-3 py-2 rounded-md my-2">
-                editar
-              </button>
-            </a>
-            <a href="?delete_id=<?php echo $row['id']; ?>">
-              <button class="bg-red-600 text-white px-3 py-2 rounded-md my-2">
-                excluir
-              </button>
-            </a>
+              <a href="./editar_banner.php?edit_id=<?php echo $banner['id']; ?>" type="button" class="bg-color1 text-white px-3 py-2 rounded-md my-2">
+                Editar
+              </a>
+              <a href="./controllers/delete_banner.php?id=<?php echo $banner['id']; ?>" type="button" class="bg-red-600 text-white px-3 py-2 rounded-md my-2">
+                Excluir
+              </a>
             </div>
           </div>
         <?php } ?>

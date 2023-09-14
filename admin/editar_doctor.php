@@ -1,102 +1,30 @@
 <?php
 session_start();
-date_default_timezone_set('America/Sao_Paulo');
-ini_set('default_charset', 'utf-8');
-require '../db_config.php';
-if (isset($_SESSION['logado'])) :
-else :
-  header("Location:login.php");
-endif;
+require "../db_config.php";
+require "../functions/get.php";
 
-if (isset($_GET['edit_id']) && !empty($_GET['edit_id'])) {
-  $id = $_GET['edit_id'];
-  $stmt_edit = $DB_con->prepare('SELECT * FROM doctors WHERE id =:uid');
-  $stmt_edit->execute(array(':uid' => $id));
-  $edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
-  extract($edit_row);
-} else {
-  header("Location: dashboard.php");
+if (!isset($_SESSION['id'])) {
+  header('Location: login.php');
+  exit;
 }
 
-if (isset($_POST['btnsave'])) {
-  $name = $_POST['name'];
-  $specialty = $_POST['specialty'];
-  $crm = $_POST['crm'];
-  $contact = $_POST['contact'];
-  $old_date = $_POST['date_nasc'];
-  if (!empty($old_date)) {
-    $date_nasc = date('d/m/Y', strtotime($old_date));
-  }
-  $email = $_POST['email'];
-  $instagram = $_POST['instagram'];
-  $curriculum = $_POST['curriculum'];
-  $rqe = $_POST['rqe'];
-  $title_office = $_POST['title_office'];
+$user_id = $_SESSION['id'] ?? null;
 
-  $imgFile = $_FILES['user_image']['name'];
-  $tmp_dir = $_FILES['user_image']['tmp_name'];
-  $imgSize = $_FILES['user_image']['size'];
+$sql = "SELECT name, email, img FROM users WHERE id = ?";
+$stmt = $DB_con->prepare($sql);
+$stmt->execute([$user_id]);
+$user = $stmt->fetch();
 
-  if (empty($name)) {
-    $errMSG = "Por favor, insira o nome do Profissional";
-  }
-  if ($imgFile) {
-    $upload_dir = 'uploads/doctors/';
-    $imgExt =  strtolower(pathinfo($imgFile, PATHINFO_EXTENSION));
-    $valid_extensions = array('jpeg', 'jpg', 'png', 'webp');
+$id = $_GET['id'];
+$doctor = getDoctor($id);
 
-    $userpic = rand(1000, 1000000) . "." . $imgExt;
-
-    // allow valid image file formats
-    if (in_array($imgExt, $valid_extensions)) {
-      // Check file size '5MB'
-      if ($imgSize < 5000000) {
-        move_uploaded_file($tmp_dir, $upload_dir . $userpic);
-      } else {
-        $errMSG = "Imagem muito grande.";
-      }
-    }
-  } else {
-    $userpic = $img;
-  }
-  if (!isset($errMSG)) {
-    $stmt = $DB_con->prepare('UPDATE doctors
-    SET 
-    name=:uname,
-    specialty=:uspecialty,
-    crm=:ucrm,
-    contact=:ucontact,
-    date_nasc=:udate_nasc,
-    email=:uemail,
-    instagram=:uinstagram,
-    curriculum=:ucurriculum,
-    img=:upic,
-    rqe=:urqe,
-    title_office=:utitle_office
-    WHERE id=:uid ;');
-    $stmt->bindParam(':uname', $name);
-    $stmt->bindParam(':uspecialty', $specialty);
-    $stmt->bindParam(':ucrm', $crm);
-    $stmt->bindParam(':ucontact', $contact);
-    $stmt->bindParam(':udate_nasc', $date_nasc);
-    $stmt->bindParam(':uemail', $email);
-    $stmt->bindParam(':uinstagram', $instagram);
-    $stmt->bindParam(':ucurriculum', $curriculum);
-    $stmt->bindParam(':upic', $userpic);
-    $stmt->bindParam(':urqe', $rqe);
-    $stmt->bindParam(':utitle_office', $title_office);
-    $stmt->bindParam(':uid', $id);
-
-    if ($stmt->execute()) {
-      echo ("<script>
-        alert (\"Profissional atualizado com sucesso\")
-        window.location.href = './dashboard.php';
-        </script>"
-      );
-    } else {
-      $errMSG = "Erro..";
-    }
-  }
+function getDoctor($id)
+{
+  global $DB_con;
+  $stmt = $DB_con->prepare("SELECT * FROM doctors WHERE id = :id");
+  $stmt->bindParam(':id', $id);
+  $stmt->execute();
+  return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 ?>
 <!DOCTYPE html>
@@ -116,6 +44,7 @@ if (isset($_POST['btnsave'])) {
             color1: '#006CAC',
             color2: '#FFFFFF',
             color3: '#0070AC',
+            color4: '#206672',
           }
         }
       }
@@ -126,27 +55,30 @@ if (isset($_POST['btnsave'])) {
 <body>
   <?php include "components/sidebar.php" ?>
   <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-    <?php include "components/header.php" ?>
+    <div class="flex items-start justify-between p-4 border-b rounded-t">
+      <h3 class="text-2xl text-gray-600 font-medium lg:block">
+        Editar Médico
+      </h3>
+    </div>
     <div class="px-6 pt-6 2xl:container">
-      <form action="" method="POST" enctype="multipart/form-data">
+      <form action="./controllers/edit_doctor.php?id=<?php echo $doctor['id']; ?>" method="POST" enctype="multipart/form-data" class="relative bg-white rounded-lg shadow">
         <div class="flex w-full justify-center">
           <div class="space-y-6 w-full">
             <div class="grid md:grid-cols-2 gap-6">
-              <input name="name" value="<?php echo $name ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome">
-              <input name="crm" value="<?php echo $crm ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="CRM">
-              <input style="height:45px" name="contact" value="<?php echo $contact ?>" class="w-full md:mt-6 text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Contato">
+              <input name="name" value="<?php echo $doctor['name'] ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome">
+              <input name="crm" value="<?php echo $doctor['crm'] ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="CRM">
+              <input style="height:45px" name="contact" value="<?php echo $doctor['contact'] ?>" class="w-full md:mt-6 text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Contato">
               <div class="grid">
-                <label for="date_nasc">Data de nascimento: <?php echo $date_nasc ?></label>
+                <label for="date_nasc">Data de nascimento: <?php echo $doctor['date_nasc'] ?></label>
                 <input name="date_nasc" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="date" placeholder="Data de Nascimento">
               </div>
-              <input name="email" value="<?php echo $email ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Email">
-              <input name="instagram" value="<?php echo $instagram ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Instagram">
-              <input name="curriculum" value="<?php echo $curriculum ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Curriculum Lates">
-              <input name="rqe" value="<?php echo $rqe ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="RQE">
+              <input name="email" value="<?php echo $doctor['email'] ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Email">
+              <input name="instagram" value="<?php echo $doctor['instagram'] ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Instagram">
+              <input name="curriculum" value="<?php echo $doctor['curriculum'] ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Curriculum Lates">
+              <input name="rqe" value="<?php echo $doctor['rqe'] ?>" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="RQE">
               <div>
                 <label>Especialidade</label>
                 <select name="specialty" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1">
-                  <option value="<?php echo $specialty ?>"> <?php echo $specialty ?> (selecionado)</option>
                   <?php
                   $stmt = $DB_con->prepare("SELECT specialty from doctors group by specialty");
                   $stmt->execute();
@@ -160,6 +92,7 @@ if (isset($_POST['btnsave'])) {
                       ?>
                     </option>
                   <?php } ?>
+                  <option value="<?php echo $specialty ?>"> <?php echo $specialty ?> (selecionado)</option>
                 </select>
               </div>
               <div class="grid">
@@ -168,7 +101,7 @@ if (isset($_POST['btnsave'])) {
               </div>
             </div>
             <div class="items-center lg:grid lg:grid-cols-2">
-              <div class="flex justify-center"><img class="h-72 " src="./uploads/doctors/<?php echo $img; ?>" onerror="this.src='../assets/img/semperfil.png'" alt="Profile"></div>
+              <div class="flex justify-center"><img class="h-72 " src="./uploads/doctors/<?php echo $doctor['img']; ?>" onerror="this.src='../assets/img/semperfil.png'" alt="Profile"></div>
               <div x-data="showImage()" class="flex items-center justify-centermt-32 mb-32">
                 <div class="bg-white rounded-lg shadow-xl md:w-9/12 lg:w-1/2">
                   <div class="m-4">
@@ -190,8 +123,8 @@ if (isset($_POST['btnsave'])) {
                 </div>
               </div>
             </div>
-            <button type="submit" name="btnsave" class="w-1/2 flex justify-center bg-color1 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
-              Editar Profissional
+            <button type="submit" name="btnsave" class="w-1/2 flex justify-center bg-color4 text-gray-100 p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
+              Editar Médico
             </button>
           </div>
           <div class="items-center lg:grid lg:grid-cols-2">

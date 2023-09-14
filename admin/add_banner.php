@@ -1,70 +1,40 @@
 <?php
 session_start();
-date_default_timezone_set('America/Sao_Paulo');
-ini_set('default_charset', 'utf-8');
-require '../db_config.php';
-if (isset($_SESSION['logado'])) :
-else :
-  header("Location:login.php");
-endif;
+require "../db_config.php";
+require "../functions/get.php";
 
-if (isset($_POST['btnsave'])) {
-  $name = $_POST['name'];
-
-  $imgFile = $_FILES['user_image']['name'];
-  $tmp_dir = $_FILES['user_image']['tmp_name'];
-  $imgSize = $_FILES['user_image']['size'];
-
-  if (empty($name)) {
-    $errMSG = "Por favor, insira o nome do Banner";
-  } else {
-    $upload_dir = 'uploads/banners/';
-    $imgExt =  strtolower(pathinfo($imgFile, PATHINFO_EXTENSION));
-    $valid_extensions = array('jpeg', 'jpg', 'png', 'webp');
-    $userpic = rand(1000, 1000000) . "." . $imgExt;
-
-
-    if (in_array($imgExt, $valid_extensions)) {
-      if ($imgSize < 59000000) {
-        move_uploaded_file($tmp_dir, $upload_dir . $userpic);
-      } else {
-        $errMSG = "Imagem muito grande.";
-      }
-    }
-  }
-  if (!isset($errMSG)) {
-    $stmt = $DB_con->prepare('INSERT INTO banners (name,img) VALUES(:uname,:upic)');
-    $stmt->bindParam(':uname', $name);
-    $stmt->bindParam(':upic', $userpic);
-
-    if ($stmt->execute()) {
-      echo ("<script>
-        alert (\"Banner adicionado com sucesso\")
-        window.location.href = './banners.php';
-        </script>"
-      );
-    } else {
-      $errMSG = "Erro..";
-    }
-  }
+if (!isset($_SESSION['id'])) {
+  header('Location: login.php');
+  exit;
 }
+
+$user_id = $_SESSION['id'] ?? null;
+$sql = "SELECT name, email, img FROM users WHERE id = ?";
+$stmt = $DB_con->prepare($sql);
+$stmt->execute([$user_id]);
+$user = $stmt->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-	<?php include "components/heads.php" ?>
-	<?php include "config/twconfig.php"; ?>
+  <?php include "components/heads.php" ?>
+  <?php include "config/twconfig.php"; ?>
 </head>
 
 <body>
   <?php include "components/sidebar.php" ?>
   <div class="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-    <?php include "components/header.php" ?>
+    <div class="flex items-start justify-between p-4 border-b rounded-t">
+      <h3 class="text-xl font-semibold text-gray-900">
+        Adicionar Banner
+      </h3>
+    </div>
     <div class="px-6 pt-6 2xl:container">
-      <form action="" method="POST" enctype="multipart/form-data">
+      <form action="./controllers/add_banner.php" method="POST" enctype="multipart/form-data">
         <div class="flex w-full justify-center">
           <div class="space-y-6 w-full">
+            <label class="inline-block mb-2">Nome</label>
             <input name="name" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome do Banner">
             <div x-data="showImage()" class="flex items-center justify-centermt-32 mb-32">
               <div class="bg-white rounded-lg shadow-xl md:w-9/12 lg:w-1/2">
@@ -80,7 +50,7 @@ if (isset($_POST['btnsave'])) {
                         <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                           Escolha uma foto</p>
                       </div>
-                      <input type="file" name="user_image" class="opacity-0" accept="image/*" @change="showPreview(event)" />
+                      <input type="file" name="img" class="opacity-0" accept="image/*" @change="showPreview(event)" />
                     </label>
                   </div>
                 </div>
