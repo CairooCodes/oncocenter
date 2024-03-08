@@ -25,22 +25,19 @@
             <input type="file" id="img" name="img" accept="image/*">
           </div>
           <div class="col-span-6 sm:col-span-3">
-            <label>Especialidade</label>
+            <div class="flex justify-between">
+              <label>Especialidade</label><a href="especialidades.php" class="text-blue-800">Adicionar especialidade</a>
+            </div>
             <select name="specialty" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1">
-              <?php
-              $stmt = $DB_con->prepare("SELECT specialty from doctors group by specialty");
-              $stmt->execute();
-              while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                extract($row);
-              ?>
-                <option value="<?php echo $specialty ?>">
+            <?php foreach ($categories as $categorie) { ?>
+                <option value="<?php echo $categorie['name']; ?>">
                   <?php
-                  $specialty2 = str_replace('<br>', '/', $specialty);
-                  echo $specialty2;
+                  $categorie_1 = $categorie['name']; 
+                  $categorie_formated = str_replace('<br>', '/', $categorie_1);
+                  echo $categorie_formated;
                   ?>
                 </option>
               <?php } ?>
-              <option value="<?php echo $specialty ?>"> <?php echo $specialty ?> (selecionado)</option>
             </select>
           </div>
           <div class="col-span-6 sm:col-span-3">

@@ -17,6 +17,7 @@ $user = $stmt->fetch();
 
 $id = $_GET['id'];
 $doctor = getDoctor($id);
+$categories = getCategories();
 
 function getDoctor($id)
 {
@@ -80,19 +81,19 @@ function getDoctor($id)
                 <label>Especialidade</label>
                 <select name="specialty" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1">
                   <?php
-                  $stmt = $DB_con->prepare("SELECT specialty from doctors group by specialty");
-                  $stmt->execute();
-                  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    extract($row);
+                  $doctor1 = $doctor['specialty'];
+                  $specialty_formated = str_replace('<br>', '/', $doctor1);
                   ?>
-                    <option value="<?php echo $specialty ?>">
+                  <option value="<?php echo $doctor['specialty'] ?>"> <?php echo $specialty_formated ?> (selecionado)</option>
+                  <?php foreach ($categories as $categorie) { ?>
+                    <option value="<?php echo $categorie['name']; ?>">
                       <?php
-                      $specialty2 = str_replace('<br>', '/', $specialty);
-                      echo $specialty2;
+                      $categorie_1 = $categorie['name'];
+                      $categorie_formated = str_replace('<br>', '/', $categorie_1);
+                      echo $categorie_formated;
                       ?>
                     </option>
                   <?php } ?>
-                  <option value="<?php echo $specialty ?>"> <?php echo $specialty ?> (selecionado)</option>
                 </select>
               </div>
               <div class="grid">

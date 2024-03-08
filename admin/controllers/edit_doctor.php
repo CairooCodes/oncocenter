@@ -5,6 +5,7 @@ if (!empty($_GET['id'])) {
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $specialty = $_POST['specialty'];
+    $specialty = str_replace('/', '<br>', $specialty);
     $crm = $_POST['crm'];
     $contact = $_POST['contact'];
     $date_nasc = $_POST['date_nasc'];
