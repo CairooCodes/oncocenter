@@ -89,14 +89,79 @@ footer i {
 
 @media (max-width: 310px) {
   .about .doctor p {
-    font-size:12px;
+    font-size: 12px;
   }
-.swiper_convenios img {
-height: 150px !important;
-} 
+
+  .swiper_convenios img {
+    height: 150px !important;
+  }
 }
 
 
 @media (min-width: 769px) {}
 
 @media (max-width: 768px) {}
+
+/* Area Instagram */
+.ContainerInstagram {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.areaTitle.instagramTitle {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.areaTitle.instagramTitle .Subtitle-Section {
+  margin-top: 10px;
+}
+
+.InstaFeed {
+  display: flex;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.InstaFeed .swiper-slide {
+  width: 25%;
+}
+
+.InstaFeed .container-img {
+  object-fit: cover;
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 20px;
+}
+
+.InstaFeed .container-video {
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+  border-radius: 20px;
+}
+
+.ContainerInstagram .MorePostsButton {
+  display: flex;
+  align-items: center;
+  background-color: #00358e;
+  padding: 14px 20px;
+  color: #fff;
+  border-radius: 80px;
+  margin: 0 auto;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  transition: .3s;
+}
+
+.ContainerInstagram .MorePostsButton:hover {
+  background-color: #ed3739;
+}
+
+.ContainerInstagram .MorePostsButton svg path {
+  stroke: #fff;
+}
