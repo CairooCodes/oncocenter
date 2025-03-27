@@ -40,7 +40,7 @@
         </p>
       </div>
       <div>
-        <a href="https://wa.me/message/QSJ2Y46CJU6EM1">
+        <a href="https://api.whatsapp.com/send?phone=558621068704&text=Ol%25C3%25A1%21%2520Bem%2520vind%40%2520%25C3%25A0%2520Oncocenter%2520Piau%25C3%25AD.%2520%25F0%259F%2598%2584%25E2%259C%25A8">
           <i class="bi bi-whatsapp"></i>
         </a>
         <a href="https://www.instagram.com/oncocenterpi/">
