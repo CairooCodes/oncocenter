@@ -2,6 +2,7 @@
 require "../../db_config.php";
 
 $name = $_POST['name'];
+$link = $_POST['link'];  // <-- Novo campo
 
 $uploadDir = '../uploads/banners/';
 
@@ -21,7 +22,8 @@ if (isset($_FILES['img']) && $_FILES['img']['error'] == UPLOAD_ERR_OK) {
   }
 }
 
-$sql = "INSERT INTO banners (name, img) VALUES (?,?)";
+$sql = "INSERT INTO banners (name, img, link) VALUES (?,?,?)";
 $stmt = $DB_con->prepare($sql);
-$stmt->execute([$name, $imgPath]);
+$stmt->execute([$name, $imgPath, $link]);
+
 header('Location: ../banners.php');

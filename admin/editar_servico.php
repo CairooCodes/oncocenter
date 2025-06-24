@@ -2,11 +2,13 @@
 session_start();
 date_default_timezone_set('America/Sao_Paulo');
 ini_set('default_charset', 'utf-8');
+
 require '../db_config.php';
-if (isset($_SESSION['logado'])) :
-else :
-  header("Location:login.php");
-endif;
+if (!isset($_SESSION['id'])) {
+  header('Location: login.php');
+  exit;
+}
+
 
 if (isset($_GET['edit_id']) && !empty($_GET['edit_id'])) {
   $id = $_GET['edit_id'];

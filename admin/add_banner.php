@@ -36,6 +36,8 @@ $user = $stmt->fetch();
           <div class="space-y-6 w-full">
             <label class="inline-block mb-2">Nome</label>
             <input name="name" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="" placeholder="Nome do Banner">
+            <label class="inline-block mb-2">Link</label>
+            <input name="link" class="w-full text-sm px-4 py-3 focus:bg-gray-100 border border-gray-300 rounded-none focus:outline-none focus:border-color1" type="text" placeholder="Link do Banner">
             <div x-data="showImage()" class="flex items-center justify-centermt-32 mb-32">
               <div class="bg-white rounded-lg shadow-xl md:w-9/12 lg:w-1/2">
                 <div class="m-4">
